@@ -4,7 +4,7 @@ from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
 
 class NoddyWidget(Widget):
-    sound = SoundLoader.load('')  # Add sound file to repo
+    
     def __init__(self, *args, **kwargs):
         super(NoddyWidget, self).__init__()
         with self.canvas:
@@ -19,6 +19,7 @@ class NoddyWidget(Widget):
         self.rect.pos = self.pos
 
     def on_touch_down(self, touch):
+        sound = SoundLoader.load('')  # Add sound file to repo
         print(touch)
         with self.canvas:
             Color(1, 1, 0)

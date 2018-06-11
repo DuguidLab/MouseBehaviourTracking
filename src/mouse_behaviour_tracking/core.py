@@ -20,9 +20,6 @@ class NoddyWidget(Widget):
 
     def on_touch_down(self, touch):
         print(touch)
-
-    def on_touch_down(self, touch):
-        print(touch)
         with self.canvas:
             Color(1, 1, 0)
             d = 30.

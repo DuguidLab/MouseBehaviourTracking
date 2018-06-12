@@ -7,13 +7,13 @@ from kivy.core.window import Window
 from kivy import metrics
 from plyer import vibrator
 
+
 class NoddyWidget(Widget):
     def __init__(self, **kwargs):
         super(NoddyWidget, self).__init__(**kwargs)
         # Get window size in pixels
         self.size = Window.size
         root = self
-
     
     def on_touch_down(self, touch):
         sound = SoundLoader.load('../res/sound.wav')  # Add sound file to repo
@@ -36,6 +36,7 @@ class NoddyWidget(Widget):
             except NotImplementedError:
                 print('Vibration not supported on this platform')
 
+
 class Target(Widget):
     def __init__(self, **kwargs):
         super(Target, self).__init__(**kwargs)
@@ -44,6 +45,7 @@ class Target(Widget):
         with self.canvas:
             Color(1, 1, 1)
             self.rect = Rectangle(pos=self.pos, size=self.size)
+
 
 class MouseBehaviourTrackingApp(App):
     def build(self):

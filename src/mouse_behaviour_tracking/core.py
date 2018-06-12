@@ -20,8 +20,10 @@ class NoddyWidget(Widget):
         print(touch)
         for child in self.children[:]:
             print(child)
-            print(child.collide_point(*touch.pos))
-            print(self.collide_widget(child))
+            if child.collide_point(*touch.pos):
+                print("HIT")
+            else:
+                print("MISS")
 
         with self.canvas:
             Color(1, 1, 0)

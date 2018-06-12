@@ -4,6 +4,7 @@ from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
 from kivy import metrics
+from plyer import vibrator
 
 class NoddyWidget(Widget):
     def __init__(self, **kwargs):
@@ -27,6 +28,10 @@ class NoddyWidget(Widget):
             Rectangle(pos=(touch.x - d / 2, touch.y - d / 2), size=(d, d))
             if sound:
                 sound.play()
+            try:
+                vibrator.vibrate(1)
+            except NotImplementedError:
+                print('Vibration not supported on this platform')
 
 
 class MouseBehaviourTrackingApp(App):

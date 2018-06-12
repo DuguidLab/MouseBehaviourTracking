@@ -2,20 +2,21 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
+from kivy.core.window import Window
 
 class NoddyWidget(Widget):
-    def __init__(self, *args, **kwargs):
-        super(NoddyWidget, self).__init__()
+    def __init__(self, **kwargs):
+        super(NoddyWidget, self).__init__(**kwargs)
+
+        # Get window size in pixels
+        self.size = Window.size
+        root = self
+
+        # Draw rectangle at center of screen
         with self.canvas:
             Color(1, 1, 0)
             d = 30.
-            spos = (self.center_x, self.center_y)
             self.rect = Rectangle(pos=self.center, size=(d, d))
-
-        self.bind(pos=self.update_rect)
-
-    def update_rect(self, *args):
-        self.rect.pos = self.pos
 
     def on_touch_down(self, touch):
         sound = SoundLoader.load('')  # Add sound file to repo

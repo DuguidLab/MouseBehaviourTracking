@@ -7,8 +7,6 @@ class GraphicsTestCase(GraphicUnitTest):
     def test_render(self):
     from kivy.uix.button import Button
 
-    # with GraphicUnitTest.render() you basically do this:
-    # runTouchApp(Button()) + some setup before
     button = Button()
     self.render(button)
 
@@ -21,18 +19,15 @@ class GraphicsTestCase(GraphicUnitTest):
         *[s / 2.0 for s in window.size]
     )
 
-    # bind something to test the touch with
     button.bind(
         on_release=lambda instance: setattr(
             instance, 'test_released', True
         )
     )
 
-    # then let's touch the Window's center
     touch.touch_down()
     touch.touch_up()
     self.assertTrue(button.test_released)
-
 
 
 class TouchTestCase(unittest.TestCase):

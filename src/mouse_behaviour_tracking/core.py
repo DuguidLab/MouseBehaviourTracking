@@ -18,7 +18,7 @@ class NoddyWidget(Widget):
             self.rect = Rectangle(pos=(self.center_x, 0), size=(30, self.height))
 
     def on_touch_down(self, touch):
-        sound = SoundLoader.load('')  # Add sound file to repo
+        sound = SoundLoader.load('../res/sound.wav')  # Add sound file to repo
         print(touch)
         with self.canvas:
             Color(1, 1, 0)

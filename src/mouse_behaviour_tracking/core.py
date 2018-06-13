@@ -1,3 +1,6 @@
+"""
+App entry point
+"""
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
@@ -11,7 +14,9 @@ import pickle
 import time
 
 
+
 class NoddyWidget(Widget):
+    """Main App widget"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Get window size in pixels
@@ -26,6 +31,7 @@ class NoddyWidget(Widget):
             print(child)
             if child.collide_point(*touch.pos):
                 print("HIT")
+                child.animate(child)
             else:
                 print("MISS")
 
@@ -57,20 +63,34 @@ class NoddyWidget(Widget):
             pickle.dump(self.dragcoords, f)
         self.dragcoords.clear()
 
+
 class Target(Widget):
+    """Target bar for behaviour"""
     def __init__(self, **kwargs):
         super(Target, self).__init__(**kwargs)
         self.size = (30, Window.height)
-        self.pos = (Window.width / 2 , 0)
+        self.pos = (Window.width / 2, 0)
+        self.update_canvas()
+        self.bind(pos=self.update_canvas)
+        self.bind(size=self.update_canvas)
+
+    def animate(self, instance):
+        animation = Animation(pos=(0, 0), t='linear')
+        animation.start(instance)
+
+    def update_canvas(self, *args):
+        self.canvas.clear()
         with self.canvas:
             Color(1, 1, 1)
-            self.rect = Rectangle(pos=self.pos, size=self.size)
+            Rectangle(pos=self.pos, size=self.size)
+
 
 class MouseBehaviourTrackingApp(App):
+    """App entry point"""
     def build(self):
         parent = NoddyWidget()
-        parent.add_widget(Target())
-        anim = Animation(x=100, y=100, duration=1)
+        target = Target()
+        parent.add_widget(target)
         return parent
         
 if __name__ == '__main__':

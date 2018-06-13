@@ -59,7 +59,7 @@ class NoddyWidget(Widget):
     def on_touch_up(self, touch):
         print("Paw released!")
         print(self.dragcoords)
-        with open(('{}.pkl').format(str(time.time())), 'wb') as f:
+        with open(('../../data/{}.pkl').format(str(time.time())), 'wb') as f:
             pickle.dump(self.dragcoords, f)
         self.dragcoords.clear()
 

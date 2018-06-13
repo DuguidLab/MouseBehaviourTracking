@@ -4,3 +4,4 @@
 *.pkl
 *egg-info/
 venv/
+data/

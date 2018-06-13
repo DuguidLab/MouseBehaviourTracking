@@ -10,6 +10,7 @@ setup(
 
     install_requires=[
         'docutils>=0.3',
+        'Cython',
         'kivy',
     ],
 

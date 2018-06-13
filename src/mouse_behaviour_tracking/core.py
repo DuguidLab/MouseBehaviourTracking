@@ -34,7 +34,10 @@ class NoddyWidget(Widget):
             d = 30.
             Rectangle(pos=(touch.x - d / 2, touch.y - d / 2), size=(d, d))
             if sound:
-                sound.play()
+                try:
+                    sound.play()
+                except FileNotFoundError:
+                    print('Sound file not located.')
             try:
                 vibrator.vibrate(1)
             except NotImplementedError:

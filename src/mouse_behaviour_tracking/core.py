@@ -1,19 +1,23 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
-from kivy.graphics import Color, Rectangle
+from kivy.graphics import Color, Rectangle, Point, GraphicException
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
+from kivy.animation import Animation
 from kivy import metrics
 from plyer import vibrator
+import pickle
+import time
+
 
 class NoddyWidget(Widget):
     def __init__(self, **kwargs):
-        super(NoddyWidget, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         # Get window size in pixels
         self.size = Window.size
         root = self
-
+        self.dragcoords = []
     
     def on_touch_down(self, touch):
         sound = SoundLoader.load('../res/sound.wav')  # Add sound file to repo
@@ -36,6 +40,20 @@ class NoddyWidget(Widget):
             except NotImplementedError:
                 print('Vibration not supported on this platform')
 
+    def on_touch_move(self, touch):
+        if touch.is_touch:
+            try:
+                self.dragcoords.append(touch.pos)
+            except Exception:
+                print("Could not find position!")
+
+    def on_touch_up(self, touch):
+        print("Paw released!")
+        print(self.dragcoords)
+        with open(('{}.pkl').format(str(time.time())), 'wb') as f:
+            pickle.dump(self.dragcoords, f)
+        self.dragcoords.clear()
+
 class Target(Widget):
     def __init__(self, **kwargs):
         super(Target, self).__init__(**kwargs)
@@ -49,8 +67,8 @@ class MouseBehaviourTrackingApp(App):
     def build(self):
         parent = NoddyWidget()
         parent.add_widget(Target())
+        anim = Animation(x=100, y=100, duration=1)
         return parent
-
-
+        
 if __name__ == '__main__':
     MouseBehaviourTrackingApp().run()

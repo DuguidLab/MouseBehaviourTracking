@@ -1,6 +1,8 @@
+"""
+App entry point
+"""
 from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.uix.button import Button
 from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
@@ -9,12 +11,13 @@ from plyer import vibrator
 
 
 class NoddyWidget(Widget):
+    """Main App widget"""
     def __init__(self, **kwargs):
         super(NoddyWidget, self).__init__(**kwargs)
         # Get window size in pixels
         self.size = Window.size
         root = self
-    
+
     def on_touch_down(self, touch):
         sound = SoundLoader.load('../res/sound.wav')  # Add sound file to repo
         print(touch)
@@ -38,6 +41,7 @@ class NoddyWidget(Widget):
 
 
 class Target(Widget):
+    """Target bar for behaviour"""
     def __init__(self, **kwargs):
         super(Target, self).__init__(**kwargs)
         self.size = (30, Window.height)
@@ -48,6 +52,7 @@ class Target(Widget):
 
 
 class MouseBehaviourTrackingApp(App):
+    """App entry point"""
     def build(self):
         parent = NoddyWidget()
         parent.add_widget(Target())

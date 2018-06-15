@@ -10,9 +10,7 @@ from kivy.core.window import Window
 from kivy.animation import Animation
 from kivy import metrics
 from plyer import vibrator
-import pickle
 import time
-
 
 
 class NoddyWidget(Widget):
@@ -59,9 +57,6 @@ class NoddyWidget(Widget):
     def on_touch_up(self, touch):
         print("Paw released!")
         print(self.dragcoords)
-        with open(('../../data/{}.pkl').format(str(time.time())), 'wb') as f:
-            pickle.dump(self.dragcoords, f)
-        self.dragcoords.clear()
 
 
 class Target(Widget):
@@ -92,6 +87,6 @@ class MouseBehaviourTrackingApp(App):
         target = Target()
         parent.add_widget(target)
         return parent
-        
+
 if __name__ == '__main__':
     MouseBehaviourTrackingApp().run()

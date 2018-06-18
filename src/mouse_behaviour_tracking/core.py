@@ -13,7 +13,7 @@ from plyer import vibrator
 import time
 
 
-class NoddyWidget(Widget):
+class MainWidget(Widget):
     """Main App widget"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -21,7 +21,7 @@ class NoddyWidget(Widget):
         self.size = Window.size
         root = self
         self.dragcoords = []
-    
+
     def on_touch_down(self, touch):
         sound = SoundLoader.load('../res/sound.wav')  # Add sound file to repo
         print(touch)
@@ -83,7 +83,7 @@ class Target(Widget):
 class MouseBehaviourTrackingApp(App):
     """App entry point"""
     def build(self):
-        parent = NoddyWidget()
+        parent = MainWidget()
         target = Target()
         parent.add_widget(target)
         return parent
